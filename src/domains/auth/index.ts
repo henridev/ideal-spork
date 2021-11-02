@@ -1,2 +1,2 @@
-export { default as selectTodos } from './auth.selector';
-export { default as authReducer } from './auth.slice';
+export { default as selectUser } from './auth.selector';
+export { authReducer } from './auth.slice';

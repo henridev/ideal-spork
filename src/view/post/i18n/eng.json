@@ -1,0 +1,14 @@
+{
+	"create": {
+		"title": "Create a new post",
+		"input": {
+			"author": "Author",
+			"title": "Title",
+			"body": "Body"
+		},
+		"button": {
+			"confirm": "Confirm",
+			"close": "Cancel"
+		}
+	}
+}

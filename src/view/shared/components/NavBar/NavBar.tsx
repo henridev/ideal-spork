@@ -20,7 +20,7 @@ import {
 	Image,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { TODO_EP, USER_EP } from '../../../routes/endpoints';
+import { POST_EP, USER_EP } from '../../../routes/endpoints';
 import { SignupPopup, LoginPopup } from '../../../auth';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks/redux.hooks';
 import { logoutAsync } from '../../../../domains/auth/auth.thunks';
@@ -29,7 +29,7 @@ import selectUser from '../../../../domains/auth/auth.selector';
 const Links = [
 	{ title: 'Home', ep: '/' },
 	{ title: 'Users', ep: USER_EP },
-	{ title: 'Todo', ep: TODO_EP },
+	{ title: 'Posts', ep: POST_EP },
 ];
 
 const NavLink: FC<{to: string}> = (props) => {
@@ -90,8 +90,9 @@ export default function withAction() {
 								boxSize="100px"
 								objectFit="contain"
 								// eslint-disable-next-line max-len
-								src="https://upload.wikimedia.org/wikipedia/fr/thumb/6/6a/Bomberman_Online_Logo.png/320px-Bomberman_Online_Logo.png"
+								src="https://res.cloudinary.com/dri8yyakb/image/upload/v1635843381/Untitled_1_j28z66.svg"
 								alt="logo"
+								style={{ filter: 'invert(1)' }}
 							/>
 						</Box>
 						<HStack

@@ -4,9 +4,9 @@ import { useRoutes } from 'react-router-dom';
 import { useAppDispatch } from './shared/hooks/redux.hooks';
 import { checkUserSessionAsync } from './domains/auth/auth.thunks';
 import { NavBar } from './view/shared/components';
+import { PostRoutes } from './view/post';
+import { UserRoutes } from './view/user';
 import LandingPage from './view/shared/LandingPage/LandingPage';
-import TodoRoutes from './view/todo/TodoRoutes';
-import UserRoutes from './view/user/UserRoutes';
 import './App.scss';
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
 
 	const element = useRoutes([
 		{ path: '/', element: <LandingPage /> },
-		TodoRoutes,
+		PostRoutes,
 		UserRoutes,
 	]);
 

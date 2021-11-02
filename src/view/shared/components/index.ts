@@ -1,5 +1,5 @@
-export { default as Portal } from './Portal/Portal';
 export { default as NavBar } from './NavBar/NavBar';
-export { default as InputField } from './InputField/InputField';
-export { default as InputBox } from './InputBox/InputBox';
-export { default as Btn } from './Btn/Btn';
+export { default as Loader } from './Loader/Loader';
+export { default as Table } from './Table/Table';
+export { default as PopupLayout } from './PopupLayout/PopupLayout';
+export { default as SortedTable } from './SortedTable/SortedTable';

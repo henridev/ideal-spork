@@ -1,17 +1,7 @@
 import { FC, ReactElement, useState } from 'react';
 import {
-	Button,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-	ModalOverlay,
 	Stack,
-	useColorModeValue,
 	UseDisclosureProps,
-	Box,
 	FormControl,
 	FormLabel,
 	Input,
@@ -20,12 +10,14 @@ import {
 	Avatar,
 	AvatarBadge,
 	IconButton,
+	Center,
 } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { registerAsync } from '../../../domains/auth/auth.thunks';
 import { useAppDispatch } from '../../../shared/hooks/redux.hooks';
+import { PopupLayout } from '../../shared/components';
 
 type Props = {popupControl: UseDisclosureProps }
 
@@ -34,7 +26,6 @@ const getRandomAvatar = () => `https://avatars.dicebear.com/api/${Math.random() 
 
 const SignupPopup: FC<Props> = (props): ReactElement => {
 	const { popupControl } = props;
-	const { isOpen, onClose } = popupControl;
 	const { register, handleSubmit, formState } = useForm();
 	const [randomAvatar, setRandomAvatar] = useState(getRandomAvatar());
 	const dispatch = useAppDispatch();
@@ -78,87 +69,58 @@ const SignupPopup: FC<Props> = (props): ReactElement => {
 	];
 
 	return (
-		<>
-			<Modal isOpen={isOpen as boolean} onClose={onClose as any}>
-				<ModalOverlay />
-				<ModalContent>
-					<ModalHeader>{t('auth:sign-up.title')}</ModalHeader>
-					<ModalCloseButton />
-					<ModalBody>
-						<Box
-							rounded="lg"
-							bg={useColorModeValue('white', 'gray.700')}
-							boxShadow="lg"
-							p={8}
-						>
-							<Stack spacing={4} align="center">
-								<Avatar size="xl" src={randomAvatar}>
-									<AvatarBadge
-										as={IconButton}
-										size="sm"
-										rounded="full"
-										top="-10px"
-										colorScheme="green"
-										aria-label="remove Image"
-										icon={<ChevronRightIcon onClick={resetRandomAvatar} />}
-									/>
-								</Avatar>
-								{
-									inputFields.map((field) => {
-										const { name, label, requirements, type } = field;
-										return <FormControl
-											isInvalid={errors?.[name]}
-											id={name}
-										>
-											<FormLabel>{label}</FormLabel>
-											<Input
-												{...register(name as any, requirements)}
-												_invalid={{ backgroundColor: 'red.400' }}
-												errorBorderColor="red.300"
-												type={type}
-											/>
-											{errors?.[name]
+		<PopupLayout
+			popupControl={popupControl}
+			onSubmit={handleSubmit(onSubmit)}
+			title={t('auth:sign-up.title')}
+			closeLabel={t('auth:sign-up.button.close')}
+			confirmLabel={t('auth:sign-up.button.confirm')}
+		>
+			<Center>
+				<Avatar size="xl" src={randomAvatar}>
+					<AvatarBadge
+						as={IconButton}
+						size="sm"
+						rounded="full"
+						top="-10px"
+						colorScheme="green"
+						aria-label="remove Image"
+						icon={<ChevronRightIcon onClick={resetRandomAvatar} />}
+					/>
+				</Avatar>
+			</Center>
+			{
+				inputFields.map((field) => {
+					const { name, label, requirements, type } = field;
+					return <FormControl
+						isInvalid={errors?.[name]}
+						id={name}
+					>
+						<FormLabel>{label}</FormLabel>
+						<Input
+							{...register(name as any, requirements)}
+							_invalid={{ backgroundColor: 'red.400' }}
+							errorBorderColor="red.300"
+							type={type}
+						/>
+						{errors?.[name]
 											&& <Text fontSize="xs">
 												{t(`auth:sign-up.input-error.${name}.${errors?.[name].type}`)}
 											</Text>}
-										</FormControl>;
-									})
-								}
-								<Stack spacing={10}>
-									<Stack
-										direction={{ base: 'column', sm: 'row' }}
-										align="start"
-										justify="space-between"
-									>
-										<Checkbox>{t('auth:sign-up.remember')}</Checkbox>
-									</Stack>
+					</FormControl>;
+				})
+			}
+			<Stack spacing={10}>
+				<Stack
+					direction={{ base: 'column', sm: 'row' }}
+					align="start"
+					justify="space-between"
+				>
+					<Checkbox>{t('auth:sign-up.remember')}</Checkbox>
+				</Stack>
 
-								</Stack>
-							</Stack>
-						</Box>
-					</ModalBody>
-					<ModalFooter>
-						<Button
-							colorScheme="red"
-							mr={3}
-							onClick={onClose}
-						>
-							{t('auth:sign-up.button.close')}
-						</Button>
-						<Button
-							bg="blue.400"
-							color="white"
-							_hover={{
-								bg: 'blue.500',
-							}}
-							onClick={handleSubmit(onSubmit)}
-						>
-							{t('auth:sign-up.button.confirm')}
-						</Button>
-					</ModalFooter>
-				</ModalContent>
-			</Modal>
-		</>
+			</Stack>
+		</PopupLayout>
 	);
 };
 

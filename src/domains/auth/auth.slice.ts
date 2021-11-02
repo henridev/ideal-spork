@@ -3,7 +3,7 @@ import { checkUserSessionAsync, loginAsync, logoutAsync, registerAsync } from '.
 import authState from './auth.state';
 import localforageStore from '../../config/localforage';
 
-export const userSlice = createSlice({
+export const authSlice = createSlice({
 	name: 'auth',
 	initialState: authState,
 	reducers: {},
@@ -62,4 +62,4 @@ export const userSlice = createSlice({
 	},
 });
 
-export default userSlice.reducer;
+export const authReducer = authSlice.reducer;

@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import authReducer from '../domains/auth/auth.slice';
-import todoReducer from '../domains/todo/todo.slice';
+import { authReducer } from '../domains/auth/auth.slice';
+import { postReducer } from '../domains/post/post.slice';
 import userReducer from '../domains/user/user.slice';
 
 /**
@@ -9,7 +9,7 @@ import userReducer from '../domains/user/user.slice';
  */
 export const store = configureStore({
 	reducer: {
-		todo: todoReducer,
+		post: postReducer,
 		auth: authReducer,
 		user: userReducer,
 	},
